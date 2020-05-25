@@ -26,6 +26,12 @@ public class Principal {
 		for (Vendedor v : list) {
 			System.out.println(v);
 		}
+		
+		System.out.println("\nVENDEDOR findAll");
+		list = vendedorDao.findAll();
+		for (Vendedor v : list) {
+			System.out.println(v);
+		}
 
 	}
 
