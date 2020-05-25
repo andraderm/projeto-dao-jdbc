@@ -1,9 +1,11 @@
 package model.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,19 +26,49 @@ public class VendedorDaoJDBC implements VendedorDAO {
 	}
 
 	@Override
-	public void insert(Vendedor dept) {
+	public void insert(Vendedor vend) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("INSERT INTO vendedor "
+					+ "(Nome, Email, DataNascimento, Salario, IdDepartamento) "
+					+ "VALUES (?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			
+			st.setString(1, vend.getNome());
+			st.setString(2, vend.getEmail());
+			st.setDate(3,  new java.sql.Date(vend.getDataNascimento().getTime()));
+			st.setDouble(4,  vend.getSalario());
+			st.setInt(5, vend.getDepartamento().getId());
+			
+			int linhasAfetadas = st.executeUpdate();
+			
+			if (linhasAfetadas > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					vend.setId(id);
+				}
+				DB.closeResultSet(rs);
+			}
+			else {
+				throw new DbException("Erro inesperado. Nenhuma linha afetada.");
+			}
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeStatement(st);
+		}
+		
+	}
+
+	@Override
+	public void update(Vendedor vend) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void update(Vendedor dept) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteById(Vendedor dept) {
+	public void deleteById(Vendedor vend) {
 		// TODO Auto-generated method stub
 		
 	}

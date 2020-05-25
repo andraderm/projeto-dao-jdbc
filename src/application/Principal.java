@@ -1,5 +1,7 @@
 package application;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,6 +15,7 @@ public class Principal {
 	public static void main(String[] args) {
 		 
 		Locale.setDefault(Locale.US);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 		VendedorDAO vendedorDao = FabricaDao.createVendedorDAO();
 
@@ -31,6 +34,15 @@ public class Principal {
 		list = vendedorDao.findAll();
 		for (Vendedor v : list) {
 			System.out.println(v);
+		}
+		
+		System.out.println("\nVENDEDOR insert");
+		try {
+			Vendedor novoVendedor = new Vendedor(null, "Gustavo Novarte", "gunov85@gmail.com", sdf.parse("07/07/1985"), 4500.00, dept);
+			vendedorDao.insert(novoVendedor);
+			System.out.println("Inserido! Novo ID = " + novoVendedor.getId());
+		} catch (ParseException e) {
+			System.out.println(e.getMessage());
 		}
 
 	}
