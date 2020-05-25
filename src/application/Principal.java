@@ -44,6 +44,12 @@ public class Principal {
 		} catch (ParseException e) {
 			System.out.println(e.getMessage());
 		}
+		
+		System.out.println("\nVENDEDOR update");
+		vend = vendedorDao.findById(12);
+		vend.setNome("Gustavo Frederico Novarte");
+		vendedorDao.update(vend);
+		System.out.println("Atualização concluída.");
 
 	}
 
