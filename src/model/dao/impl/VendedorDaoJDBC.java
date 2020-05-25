@@ -1,7 +1,6 @@
 package model.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,7 +50,7 @@ public class VendedorDaoJDBC implements VendedorDAO {
 				DB.closeResultSet(rs);
 			}
 			else {
-				throw new DbException("Erro inesperado. Nenhuma linha afetada.");
+				throw new DbException("Erro inesperado. Nenhuma linha modificada.");
 			}
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
