@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Scanner;
 
 import model.dao.FabricaDao;
 import model.dao.VendedorDAO;
@@ -16,6 +17,7 @@ public class Principal {
 		 
 		Locale.setDefault(Locale.US);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Scanner sc = new Scanner(System.in);
 
 		VendedorDAO vendedorDao = FabricaDao.createVendedorDAO();
 
@@ -36,21 +38,29 @@ public class Principal {
 			System.out.println(v);
 		}
 		
-		System.out.println("\nVENDEDOR insert");
-		try {
-			Vendedor novoVendedor = new Vendedor(null, "Gustavo Novarte", "gunov85@gmail.com", sdf.parse("07/07/1985"), 4500.00, dept);
-			vendedorDao.insert(novoVendedor);
-			System.out.println("Inserido! Novo ID = " + novoVendedor.getId());
-		} catch (ParseException e) {
-			System.out.println(e.getMessage());
-		}
+//		System.out.println("\nVENDEDOR insert");
+//		try {
+//			Vendedor novoVendedor = new Vendedor(null, "Gustavo Novarte", "gunov85@gmail.com", sdf.parse("07/07/1985"), 4500.00, dept);
+//			vendedorDao.insert(novoVendedor);
+//			System.out.println("Inserido! Novo ID = " + novoVendedor.getId());
+//		} catch (ParseException e) {
+//			System.out.println(e.getMessage());
+//		}
 		
-		System.out.println("\nVENDEDOR update");
-		vend = vendedorDao.findById(12);
-		vend.setNome("Gustavo Frederico Novarte");
-		vendedorDao.update(vend);
-		System.out.println("Atualização concluída.");
+//		System.out.println("\nVENDEDOR update");
+//		vend = vendedorDao.findById(12);
+//		vend.setNome("Gustavo Frederico Novarte");
+//		vendedorDao.update(vend);
+//		System.out.println("Atualização concluída");
+//
 
+		
+		System.out.println("\nVENDEDOR delete");
+		System.out.print("Entre um Id para deleção: ");
+		int id = sc.nextInt();
+		vendedorDao.deleteById(id);
+		System.out.println("Vendedor deletado");
+		
+		sc.close();
 	}
-
 }
