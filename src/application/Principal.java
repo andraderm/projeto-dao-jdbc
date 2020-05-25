@@ -1,6 +1,6 @@
 package application;
 
-import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 import model.dao.FabricaDao;
@@ -19,6 +19,13 @@ public class Principal {
 		System.out.println("VENDEDOR findById");
 		Vendedor vend = vendedorDao.findById(5);
 		System.out.println(vend);
+		
+		System.out.println("\nVENDEDOR findByDepartamento");
+		Departamento dept = new Departamento(2, null);
+		List<Vendedor> list = vendedorDao.findByDepartamento(dept);
+		for (Vendedor v : list) {
+			System.out.println(v);
+		}
 
 	}
 
